@@ -33,7 +33,7 @@ export function AuthMainBtn({ title, onPress }) {
       onPress={onPress}
       android_ripple={{color: 'orangered'}}
 			style={({ pressed }) =>
-				[styles.textBtn, styles.accented, pressed && styles.pressed]
+				[{marginBottom: 16}, styles.textBtn, styles.accented, pressed && styles.pressed]
       }>
 			<Text style={styles.btnTitle}>{title}</Text>
 		</Pressable>
@@ -67,11 +67,11 @@ export function ShowHideBtn({ title, onPress}) {
 	return (
 		<Pressable
 			onPress={onPress}
-			android_ripple={{ color: "orangered" }}
+			android_ripple={{ foreground: true, color: COLORS.accent }}
 			style={({ pressed }) => [
-				{
-					top: -36,
-					right: "-76%",
+				{alignSelf:'flex-end',
+					top: -50,
+					right: 16,
 				},
 				pressed && styles.pressed,
 			]}

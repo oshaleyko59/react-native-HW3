@@ -3,8 +3,7 @@ import { View, TextInput, StyleSheet} from "react-native";
 import { COLORS } from "../../common/constants";
 
 export default function StyledTextInput({
-	value,
-	onChangeText,
+	onEndEditing,
 	secureTextEntry,
 	placeholder,
 	keyboardType,
@@ -13,6 +12,7 @@ export default function StyledTextInput({
 	setKbdStatus,
 }) {
 	const [editing, setEditing] = useState(false);
+	const [text, setText] = useState("");
 
 	return (
 		<View>
@@ -28,8 +28,8 @@ export default function StyledTextInput({
 				keyboardType={keyboardType}
 				placeholder={placeholder}
 				secureTextEntry={secureTextEntry}
-				value={value}
-				onChangeText={onChangeText}
+				value={text}
+				onChangeText={(value) => setText(value)}
 				onFocus={() => {
 					setEditing(true);
 					setKbdStatus(true);
@@ -37,6 +37,10 @@ export default function StyledTextInput({
 				onBlur={() => {
 					setEditing(false);
 					setKbdStatus(false);
+				}}
+				onEndEditing={() => {
+					onEndEditing(text);
+					console.debug("end Editing");
 				}}
 			/>
 		</View>
@@ -71,7 +75,8 @@ So, i leave it for now - sliding up is not so annoying...
 	); */
 
 const styles = StyleSheet.create({
-	input: {
+  input: {
+    marginBottom: 16,
 		height: 50,
 		padding: 16,
 		borderRadius: 8,

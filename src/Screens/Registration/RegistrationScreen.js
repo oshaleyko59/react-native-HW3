@@ -25,46 +25,20 @@ const signIn = (email, password) => {
 
 export default function RegistrationScreen() {
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
 			<ImageBackground source={bkgImage} style={styles.imageBkg}>
-				<View>
-					<StatusBar
-						animated={true}
-						barStyle={"default"}
-						showHideTransition={"slide"}
-						hidden={false}
-					/>
-					<KeyboardAvoidingView
-						behavior={Platform.OS === "ios" ? "padding" : "height"}
-					>
-						<Avatar />
-						<RegistrationForm signIn={signIn} />
-					</KeyboardAvoidingView>
-				</View>
+				<RegistrationForm signUp={signUp} />
 			</ImageBackground>
 		</TouchableWithoutFeedback>
 	);
 }
 /*
-return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<ImageBackground source={bkgImage} style={stylesLocal.imageBkg}>
-				<View>
-					<StatusBar
-						animated={true}
-						barStyle={"default"}
-						showHideTransition={"slide"}
-						hidden={false}
-					/>
-					<KeyboardAvoidingView
-						behavior={Platform.OS === "ios" ? "padding" : "height"}
-					>
-						<LoginForm signUp={signUp} />
-					</KeyboardAvoidingView>
-				</View>
-			</ImageBackground>
-		</TouchableWithoutFeedback>
-	);
+				<StatusBar
+					animated={true}
+					barStyle={"default"}
+					showHideTransition={"slide"}
+					hidden={false}
+				/>
    */
 
 //TODO: ?  	SafeAreaView,

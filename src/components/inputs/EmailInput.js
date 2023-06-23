@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import StyledTextInput from "./StyledTextInput";
 
-export default function EmailInput({ value, onChangeText, setKbdStatus }) {
+export default function EmailInput({ onEndEditing, setKbdStatus }) {
 	return (
 		<View>
 			<StyledTextInput
@@ -9,11 +9,11 @@ export default function EmailInput({ value, onChangeText, setKbdStatus }) {
 				autoCapitalize="none"
 				keyboardType="email-address"
 				placeholder="Адреса електронної пошти"
-				value={value}
-				onChangeText={onChangeText}
+				onEndEditing={onEndEditing}
 				setKbdStatus={setKbdStatus}
 			/>
 		</View>
 	);
 }
 
+				//value, 		value={value}

@@ -1,27 +1,15 @@
 import { useState } from "react";
-import {
-	View,
-	TouchableWithoutFeedback,
-	Keyboard,
-} from "react-native";
-import {MainHeader} from "../../components/headers";
-import {AuthMainBtn, AuthSecondaryBtn} from "../../components/buttons";
+import { View, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { MainHeader } from "../../components/headers";
+import { AuthMainBtn, AuthSecondaryBtn } from "../../components/buttons";
 import PasswordInput from "../../components/inputs/PasswordInput";
 import EmailInput from "../../components/inputs/EmailInput";
 import { styles } from "../../common/styles";
 
-const initialState = {
-	email: "",
-	password: "",
-};
-
 export default function LoginForm({ signIn }) {
 	const [kbdStatus, setKbdStatus] = useState(false);
-	const [state, setState] = useState(initialState);
-
-	const handleLoginPress = () => {
-		signIn(state.email, state.password);
-	};
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -30,22 +18,19 @@ export default function LoginForm({ signIn }) {
 			>
 				<MainHeader>Увійти</MainHeader>
 				<EmailInput
-					value={state.email}
-					onChangeText={(value) =>
-						setState((prevState) => ({ ...prevState, email: value }))
-					}
+					onEndEditing={(value) => setEmail(value)}
 					setKbdStatus={setKbdStatus}
 				/>
 				<PasswordInput
-					value={state.password}
-					onChangeText={(value) =>
-						setState((prevState) => ({ ...prevState, password: value }))
-					}
+					onEndEditing={(value) => setPassword(value)}
 					setKbdStatus={setKbdStatus}
 				/>
 				{!kbdStatus && (
-					<View style={{ gap: 16, marginTop: 21 }}>
-						<AuthMainBtn title="Увійти" onPress={handleLoginPress} />
+					<View style={{ marginTop: 21 }}>
+						<AuthMainBtn
+							title="Увійти"
+							onPress={() => signIn(email, password)}
+						/>
 						<AuthSecondaryBtn
 							title="Зареєструватися"
 							hint="Немає акаунту?"

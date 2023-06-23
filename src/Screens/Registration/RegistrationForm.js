@@ -2,77 +2,67 @@ import { useState } from "react";
 import {
 	View,
 	TouchableWithoutFeedback,
-	StyleSheet,
-	Platform,
 	Keyboard,
+	KeyboardAvoidingView,
 } from "react-native";
 import { MainHeader } from "../../components/headers";
-import {AuthMainBtn, AuthSecondaryBtn} from "../../components/buttons";
+import { AuthMainBtn, AuthSecondaryBtn } from "../../components/buttons";
 import PasswordInput from "../../components/inputs/PasswordInput";
 import EmailInput from "../../components/inputs/EmailInput";
 import StyledTextInput from "../../components/inputs/StyledTextInput";
+import Avatar from "./Avatar";
 import { styles } from "../../common/styles";
-//import { COLORS } from "../common/constants";
-
-const initialState = {
-	name: "",
-	email: "",
-	password: "",
-};
 
 export default function RegistrationForm({ signUp }) {
-	const [state, setState] = useState(initialState);
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [kbdStatus, setKbdStatus] = useState(false);
 
-	const handleRegisterPress = () => {
-		signUp(state.name, state.email, state.password);
-	};
-
-	//TODO: setKbdStatus
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View
-				style={[styles.formContainer, { paddingTop: 92, paddingBottom: 32 }]}
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={{ flex: 1, justifyContent: "flex-end" }}
+		>
+			<TouchableWithoutFeedback
+				onPress={Keyboard.dismiss}
+				style={{ flex: 1}}
 			>
-				<MainHeader>Реєстрація</MainHeader>
-				<StyledTextInput
-					autoComplete="name"
-					autoCapitalize="words"
-					placeholder="Логін"
-					value={state.name}
-					onChangeText={(value) =>
-						setState((prevState) => ({ ...prevState, name: value }))
-					}
-					setKbdStatus={setKbdStatus}
-				/>
-				<EmailInput
-					value={state.email}
-					onChangeText={(value) =>
-						setState((prevState) => ({ ...prevState, email: value }))
-					}
-					setKbdStatus={setKbdStatus}
-				/>
-				<PasswordInput
-					value={state.password}
-					onChangeText={(value) =>
-						setState((prevState) => ({ ...prevState, password: value }))
-					}
-					setKbdStatus={setKbdStatus}
-				/>
-				{!kbdStatus && (
-					<View style={{ gap: 16, marginTop: 21 }}>
-						<AuthMainBtn title="Зареєстуватися" onPress={handleRegisterPress} />
-						<AuthSecondaryBtn
-							title="Увійти"
-							hint="Вже є акаунт?"
-							onPress={() =>
-								console.info("@RegistrationForm>> 'Login' pressed")
-							}
-						/>
-						<View style={{ height: 84 }} />
-					</View>
-				)}
-			</View>
-		</TouchableWithoutFeedback>
+				<View style={[styles.formContainer, { paddingTop: 92 }]}>
+					<Avatar />
+					<MainHeader style={{ marginBottom: 32 }}>Реєстрація</MainHeader>
+					<StyledTextInput
+						autoComplete="name"
+						autoCapitalize="words"
+						placeholder="Логін"
+						onEndEditing={(value) => setName(value)}
+						setKbdStatus={setKbdStatus}
+					/>
+					<EmailInput
+						onEndEditing={(value) => setEmail(value)}
+						setKbdStatus={setKbdStatus}
+					/>
+					<PasswordInput
+						onEndEditing={(value) => setPassword(value)}
+						setKbdStatus={setKbdStatus}
+					/>
+					{!kbdStatus && (
+						<View style={{ paddingTop: 8, paddingBottom: 78 }}>
+							<AuthMainBtn
+								title="Зареєстуватися"
+								onPress={() => signUp(name, email, password)}
+							/>
+							<AuthSecondaryBtn
+								title="Увійти"
+								hint="Вже є акаунт?"
+								onPress={() =>
+									console.info("@RegistrationForm>> 'Login' pressed")
+								}
+							/>
+						</View>
+					)}
+				</View>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 }

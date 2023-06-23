@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
 	},
 	formContainer: {
 		paddingHorizontal: 16,
-		gap: 16,
 		borderTopRightRadius: 25,
 		borderTopLeftRadius: 25,
 		backgroundColor: COLORS.mainBkg,

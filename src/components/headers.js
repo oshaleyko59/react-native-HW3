@@ -1,8 +1,8 @@
 import { Text, StyleSheet } from "react-native";
 import { COLORS } from "../common/constants";
 
-export function MainHeader({ children }) {
-	return <Text style={styles.main}>{children}</Text>;
+export function MainHeader({ style, children }) {
+	return <Text style={[styles.main, style]}>{children}</Text>;
 }
 
 export function Header2({ children }) {
@@ -11,7 +11,6 @@ export function Header2({ children }) {
 
 const styles = StyleSheet.create({
 	main: {
-		marginBottom: 16,
 		fontSize: 30,
 		lineHeight: 35,
 		letterSpacing: 0.3,
