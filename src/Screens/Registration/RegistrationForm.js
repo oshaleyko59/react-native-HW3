@@ -24,10 +24,7 @@ export default function RegistrationForm({ signUp }) {
 			behavior={Platform.OS === "ios" ? "padding" : "height"}
 			style={{ flex: 1, justifyContent: "flex-end" }}
 		>
-			<TouchableWithoutFeedback
-				onPress={Keyboard.dismiss}
-				style={{ flex: 1}}
-			>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
 				<View style={[styles.formContainer, { paddingTop: 92 }]}>
 					<Avatar />
 					<MainHeader style={{ marginBottom: 32 }}>Реєстрація</MainHeader>

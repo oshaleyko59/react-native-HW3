@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { View, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+	View,
+	TouchableWithoutFeedback,
+	Keyboard,
+	KeyboardAvoidingView,
+} from "react-native";
 import { MainHeader } from "../../components/headers";
 import { AuthMainBtn, AuthSecondaryBtn } from "../../components/buttons";
 import PasswordInput from "../../components/inputs/PasswordInput";
@@ -12,35 +17,39 @@ export default function LoginForm({ signIn }) {
 	const [password, setPassword] = useState("");
 
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<View
-				style={[styles.formContainer, { paddingTop: 32, paddingBottom: 8 }]}
-			>
-				<MainHeader>Увійти</MainHeader>
-				<EmailInput
-					onEndEditing={(value) => setEmail(value)}
-					setKbdStatus={setKbdStatus}
-				/>
-				<PasswordInput
-					onEndEditing={(value) => setPassword(value)}
-					setKbdStatus={setKbdStatus}
-				/>
-				{!kbdStatus && (
-					<View style={{ marginTop: 21 }}>
-						<AuthMainBtn
-							title="Увійти"
-							onPress={() => signIn(email, password)}
-						/>
-						<AuthSecondaryBtn
-							title="Зареєструватися"
-							hint="Немає акаунту?"
-							onPress={() => console.info("@LoginForm>> 'Register' pressed")}
-						/>
-						<View style={{ height: 84 }} />
-					</View>
-				)}
-			</View>
-		</TouchableWithoutFeedback>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={{ flex: 1, justifyContent: "flex-end" }}
+		>
+			<TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+				<View
+          style={[styles.formContainer, { paddingTop: 32 }]}
+				>
+					<MainHeader style={{ marginBottom: 32 }}>Увійти</MainHeader>
+					<EmailInput
+						onEndEditing={(value) => setEmail(value)}
+						setKbdStatus={setKbdStatus}
+					/>
+					<PasswordInput
+						onEndEditing={(value) => setPassword(value)}
+						setKbdStatus={setKbdStatus}
+					/>
+					{!kbdStatus && (
+						<View style={{ paddingTop: 8, paddingBottom: 144 }}>
+							<AuthMainBtn
+								title="Увійти"
+								onPress={() => signIn(email, password)}
+							/>
+							<AuthSecondaryBtn
+								title="Зареєструватися"
+								hint="Немає акаунту?"
+								onPress={() => console.info("@LoginForm>> 'Register' pressed")}
+							/>
+						</View>
+					)}
+				</View>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 }
 

@@ -40,39 +40,13 @@ export default function StyledTextInput({
 				}}
 				onEndEditing={() => {
 					onEndEditing(text);
-					console.debug("end Editing");
+
 				}}
 			/>
 		</View>
 	);
 }
-
-/* FIXME: wrapping individual inputs (as below) fixes Android issue
-( the inputs container slides up  when switching between inputs ),
-but it renders orange button in between switches - it looks ugly (((...
-So, i leave it for now - sliding up is not so annoying...
-
-	return (
-		<KeyboardAvoidingView
-					behavior={Platform.OS == "ios" ? "padding" : "height"}
-				><View>
-			<TextInput
-				style={style}
-				autoComplete={autoComplete}
-				autoCapitalize={autoCapitalize}
-				keyboardType={keyboardType}
-				placeholder={placeholder}
-				secureTextEntry={secureTextEntry}
-				value={value}
-				onChangeText={onChangeText}
-				onFocus={() => {
-					setEditing(true); setKbdStatus(true);
-				}}
-				onBlur={() => {
-					setEditing(false);setKbdStatus(false);
-				}}
-			/></View></KeyboardAvoidingView>
-	); */
+//	console.debug("end Editing");
 
 const styles = StyleSheet.create({
   input: {
